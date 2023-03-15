@@ -17,6 +17,13 @@ public class Controller {
 		String password = input.next();
 		System.out.println("Please Enter the UserName");
 		String userName = input.next();
+		System.out.println("Please Enter the Amount to Deposit");
+		int acc = input.nextInt();
+		while(acc<5000) {
+			System.out.println("Please Enter the Amount above 5000 Deposit");
+			acc = input.nextInt();
+		}
+		
 		ResultSet result = JdbcConnection.connector();
 		boolean create = true;
 		while (result.next()) {
@@ -30,9 +37,10 @@ public class Controller {
 		if (create) {
 			JdbcConnection.connector().getStatement()
 					.execute("INSERT INTO `akash`.`details` (`username`, `password`, `name`, `balance`) VALUES ('"
-							+ userName + "', '" + password + "', '" + name + "', '0')");
+							+ userName + "', '" + password + "', '" + name + "', '"+acc+"')");
 
 			System.out.println("Account Created Successfully");
+			
 			result.close();
 		}
 	}
